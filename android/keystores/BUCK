@@ -1,7 +1,7 @@
 keystore(
     name = "debug",
     properties = "debug.keystore.properties",
-    store = "debug.keystore",
+    store = "dev-keystore.jks",
     visibility = [
         "PUBLIC",
     ],
