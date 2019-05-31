@@ -12,12 +12,7 @@ export default class App extends Component {
     }
 
     handleExecutePressed() {
-        return fetch('https://api.coo.ee/api/v0/todo',
-            {
-                headers: new Headers({
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsImV4cCI6MTU1NTkzMzU1NH0.eyJlbWFpbCI6Inl1cmlAY29vLmVlIiwibmFtZSI6Ill1cmkgU2NoaW1rZSJ9.vU792lp7BknhJ0qoB8DDadd-sSo4N1RRetUXP6RBCqI',
-                }),
-            })
+        return fetch('https://nghttp2.org/httpbin/get')
             .then((response) => {
                 this.setState({
                     results: this.state.results.concat("Success " + response.status)

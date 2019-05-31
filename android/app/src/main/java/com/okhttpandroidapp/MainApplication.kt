@@ -3,7 +3,6 @@ package com.okhttpandroidapp
 import android.app.Application
 import android.os.Build
 import android.support.annotation.RequiresApi
-
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
@@ -14,9 +13,7 @@ import com.okhttpandroidapp.networks.ConnectionsLiveData
 import com.okhttpandroidapp.networks.NetworksLiveData
 import com.okhttpandroidapp.networks.NetworksPackage
 import com.okhttpandroidapp.okhttp.CustomNetworkModule
-import com.okhttpandroidapp.toast.CustomToastPackage
-
-import java.util.Arrays
+import java.util.*
 
 @Suppress("unused")
 class MainApplication : Application(), ReactApplication {
@@ -32,7 +29,6 @@ class MainApplication : Application(), ReactApplication {
         override fun getPackages(): List<ReactPackage> {
             return Arrays.asList(
                     MainReactPackage(),
-                    CustomToastPackage(),
                     networksPackage
             )
         }

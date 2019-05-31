@@ -4,7 +4,7 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.WritableMap
 
 data class NetworksState(val networks: List<NetworkState>, val events: List<NetworkEvent>,
-                         val activeNetwork: String) {
+                         val activeNetwork: String?) {
     fun toMap(): WritableMap {
         val result = Arguments.createMap()
 

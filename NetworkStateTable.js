@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View, Button, DeviceEventEmitter} from 'react-native';
+import React, { Component } from 'react';
+import { FlatList, StyleSheet, Text, View, Button, DeviceEventEmitter } from 'react-native';
 import NetworkState from "./NetworkState";
 
 export default class NetworkStateTable extends Component {
@@ -18,9 +18,9 @@ export default class NetworkStateTable extends Component {
         this.setState({
             isLoading: false,
             networks: networks,
-        }, () => {});
+        }, () => { });
     }
-    
+
     componentDidMount() {
         NetworkState.getNetworks().then(this.onStateEvent);
 
@@ -34,26 +34,35 @@ export default class NetworkStateTable extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <View style={{flex: 1, paddingTop: 20}}>
+                <View style={{ flex: 1, paddingTop: 20 }}>
                     <Text>Loading...</Text>
                 </View>
             )
         }
 
-        return <View style={{flex: 1, paddingTop: 20}}>
-            <Text>Active Network: {this.state.networks.activeNetwork}</Text>
-            <Text>Events</Text>
-            <FlatList
-                data={this.state.networks.events}
-                renderItem={({item}) => <Text>{item.networkId} - {item.event}</Text>}
-                keyExtractor={({id}, index) => id}
-            />
-            <Text>Networks</Text>
-            <FlatList
-                data={this.state.networks.networks}
-                renderItem={({item}) => <Text>{item.networkId} - {item.name} - {item.connected ? "Connected" : "Disconnected"}</Text>}
-                keyExtractor={({networkId}, index) => networkId}
-            />
+        // let events = null;
+
+        // if (this.props.showEvents) {
+        //     events = <Div>
+        //         <Text>Active Network: {this.state.networks.activeNetwork}</Text>
+        //         <Text>Events</Text>
+        //         <FlatList
+        //             data={this.state.networks.events}
+        //             renderItem={({ item }) => <Text>{item.networkId} - {item.event}</Text>}
+        //             keyExtractor={({ id }, index) => id}
+        //         />
+        //     </Div>;
+        // }
+
+        return <View style={{ flex: 1, paddingTop: 20 }}>
+                <Text>Networks</Text>
+                <FlatList
+                    data={this.state.networks.networks}
+                    renderItem={({ item }) => <Text>
+                        {item.networkId} {item.name} {item.active} {item.connected ? "Connected" : "Disconnected"} {item.type} {item.active ? "Active" : "Not Active"} {item.state} {item.localAddress}
+                    </Text>}
+                    keyExtractor={({ networkId }, index) => networkId}
+                />
         </View>;
     }
 }

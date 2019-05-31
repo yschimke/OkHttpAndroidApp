@@ -17,8 +17,12 @@ class MainActivity : ReactActivity() {
         Handler().postDelayed({
             Log.w("MainActivity", "start network listener")
             val mainApplication = this.application as MainApplication
-            mainApplication.networksPackage.stateModule.startListeners(this)
-        }, 1000)
+            try {
+                mainApplication.networksPackage.stateModule.startListeners(this)
+            } catch (e: UninitializedPropertyAccessException) {
+                Log.e("MainActivity", "failed", e)
+            }
+        }, 2000)
     }
 
     override fun getMainComponentName(): String? {
