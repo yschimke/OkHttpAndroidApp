@@ -8,8 +8,7 @@ import android.support.annotation.RequiresPermission
 import okhttp3.ConnectionPool
 import okhttp3.Route
 import okhttp3.internal.connection.RealConnection
-import java.net.Inet4Address
-import java.net.InetSocketAddress
+import java.net.Socket
 import java.util.*
 import kotlin.concurrent.timer
 import kotlin.reflect.full.memberProperties
@@ -23,6 +22,8 @@ constructor(val connectionPool: ConnectionPool)
 
     private lateinit var activeTimer: Timer
     private var lastState: ConnectionPoolState? = null
+    private val connectionMap = mutableMapOf<Int, String>()
+    private var connectionId = 0
 
     init {
         update()
@@ -52,9 +53,14 @@ constructor(val connectionPool: ConnectionPool)
     private fun toConnectionState(it: RealConnection): ConnectionState {
         val r = it.route()
         val s = it.socket()
-        val id = System.identityHashCode(s).toString()
-        return ConnectionState(id, remoteIp(r), r.socketAddress().port,
+        return ConnectionState(id(s), remoteIp(r), r.socketAddress().port,
                 r.proxy().toString(), r.address().url().host(), s.localAddress.hostAddress)
+    }
+
+    private fun id(s: Socket): String {
+        return connectionMap.computeIfAbsent(System.identityHashCode(s)) {
+            "" + ++connectionId
+        }
     }
 
     private fun remoteIp(r: Route): String {

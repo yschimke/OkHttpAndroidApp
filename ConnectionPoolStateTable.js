@@ -44,7 +44,7 @@ export default class ConnectionPoolStateTable extends Component {
             <Text>Count: {this.state.connections.connectionsCount} Idle: {this.state.connections.idleConnectionsCount}</Text>
             <FlatList
                 data={this.state.connections.connections}
-                renderItem={({item}) => <Text>{item.destHost} {item.proxy} {item.host} {item.localAddress}</Text>}
+                renderItem={({item}) => <Text>{item.id} {item.destHost} {item.proxy} {item.host} {item.localAddress}</Text>}
                 keyExtractor={({id}, index) => id}
             />
         </View>;
