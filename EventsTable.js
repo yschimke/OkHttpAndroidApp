@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Button, DeviceEventEmitter } from 'react-native';
 import NetworkState from "./NetworkState";
 
-export default class NetworkStateTable extends Component {
+export default class EventsTable extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
-            networks: {}
+            events: []
         }
 
         this.onStateEvent = this.onStateEvent.bind(this);
@@ -17,7 +17,7 @@ export default class NetworkStateTable extends Component {
     onStateEvent(networks) {
         this.setState({
             isLoading: false,
-            networks: networks,
+            events: networks.events,
         }, () => { });
     }
 
@@ -34,20 +34,24 @@ export default class NetworkStateTable extends Component {
     render() {
         if (this.state.isLoading) {
             return <View style={{ flex: 1 }}>
-                    <Text style={{fontWeight: 'bold'}}>Networks</Text>
+                    <Text style={{fontWeight: 'bold'}}>Events</Text>
                     <Text>Loading...</Text>
                 </View>;
         }
 
         return <View style={{ flex: 1 }}>
-            <Text style={{fontWeight: 'bold'}}>Networks</Text>
-            <FlatList
-                data={this.state.networks.networks}
-                renderItem={({ item }) => <Text>
-                    {item.networkId} {item.name} {item.active} {item.connected ? "Connected" : "Disconnected"} {item.type} {item.active ? "Active" : "Not Active"} {item.state} {item.localAddress}
-                </Text>}
-                keyExtractor={({ networkId }, index) => networkId}
-            />
+            <View>
+                <Text style={{fontWeight: 'bold'}}>Events</Text>
+                <FlatList
+                    ref = "flatList"
+                    data={this.state.events}
+                    renderItem={({ item }) => <Text>{item.networkId} {item.event}</Text>}
+                    keyExtractor={({ id }, index) => id}
+                    onContentSizeChange={(contentWidth, contentHeight)=>{        
+                        this.refs.flatList.scrollToEnd({animated: true});
+                    }}
+                />
+            </View>
         </View>;
     }
 }

@@ -24,7 +24,7 @@ constructor(application: Application)
     object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
-            show(NetworkEvent(network.toString(), "available $network"))
+            show(NetworkEvent(network.toString(), "available"))
         }
 
         override fun onUnavailable() {
@@ -32,16 +32,16 @@ constructor(application: Application)
         }
 
         override fun onLost(network: Network) {
-            show(NetworkEvent(network.toString(), "lost $network"))
+            show(NetworkEvent(network.toString(), "lost"))
         }
 
         override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
             // TODO describe properties
-            show(NetworkEvent(network.toString(), "properties of $network changed"))
+            show(NetworkEvent(network.toString(), "properties changed"))
         }
 
         override fun onLosing(network: Network, maxMsToLive: Int) {
-            show(NetworkEvent(network.toString(), "losing $network in $maxMsToLive ms"))
+            show(NetworkEvent(network.toString(), "losing in $maxMsToLive ms"))
         }
     }
 

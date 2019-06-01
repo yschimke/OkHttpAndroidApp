@@ -33,17 +33,15 @@ export default class ConnectionPoolStateTable extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1, paddingTop: 20}}>
+            return <View style={{ flex: 1 }}>
+                    <Text style={{fontWeight: 'bold'}}>Connections</Text>
                     <Text>Loading...</Text>
-                </View>
-            )
+                </View>;
         }
 
-        return <View style={{flex: 1, paddingTop: 20}}>
-            <Text>Connection Count: {this.state.connections.connectionsCount}</Text>
-            <Text>Idle Connection Count: {this.state.connections.idleConnectionsCount}</Text>
-            <Text>Connections</Text>
+        return <View style={{ flex: 1 }}>
+            <Text style={{fontWeight: 'bold'}}>Connections</Text>
+            <Text>Count: {this.state.connections.connectionsCount} Idle: {this.state.connections.idleConnectionsCount}</Text>
             <FlatList
                 data={this.state.connections.connections}
                 renderItem={({item}) => <Text>{item.destHost} {item.proxy} {item.host} {item.localAddress}</Text>}
